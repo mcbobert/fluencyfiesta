@@ -4,9 +4,17 @@
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('./fonts/SF-Pro-Display-Semibold.woff') format('woff2'),
-       url('./fonts/SF-Pro-Display-Semibold.woff') format('woff');
+  src: url('./fonts/SF-Pro-Display-SemiBold.woff') format('woff2'),
+       url('./fonts/SF-Pro-Display-SemiBold.woff') format('woff');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./fonts/SF-Pro-Display-Bold.woff') format('woff2'),
+    url('./fonts/SF-Pro-Display-Bold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
 }
 

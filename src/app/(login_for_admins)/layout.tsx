@@ -1,10 +1,10 @@
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import HomeNavbar from "@/components/home_navbar";
+import Navbar from "@/components/COOL_navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {
-  title: "feed",
+  title: "quoio",
   description: "The straightforward way to learn a language",
 };
 
@@ -19,7 +19,7 @@ export default async function RootLayout({
         <Toaster richColors position="top-right" closeButton />
         <body>
           <header>
-            <HomeNavbar />
+            <Navbar />
           </header>
           <main>{children}</main>
         </body>

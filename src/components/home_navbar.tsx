@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs"; // Use the useUser hook instead of currentUser
 import logo from "../../public/assets/images/quoio.png";
 import { Button } from "./ui/button";
 import {
@@ -24,9 +25,42 @@ import {
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+
 import { SignOutButton } from "@clerk/nextjs";
+import { supabase } from "../../utils/supabase/client"; // Import your Supabase client
+
+// Define the type for the profile data
+type UserProfile = {
+  user_name: string;
+};
 
 const AppNavbar = () => {
+  const { user, isLoaded } = useUser();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (isLoaded && user) {
+        const { data, error } = await supabase
+          .from("user_profiles")
+          .select("user_name")
+          .eq("user_id", user.id)
+          .limit(1)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Error fetching user profile:", error);
+        } else if (data) {
+          setProfile(data);
+        }
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [isLoaded, user]);
+
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-transparent">
       {/* Left-aligned Logo */}
@@ -47,8 +81,11 @@ const AppNavbar = () => {
         <Link href="/home" className="text-gray-700 text-lg hover:text-black">
           Learn
         </Link>
-        <Link href="/feed" className="text-gray-700 text-lg hover:text-black">
-          Feed
+        <Link
+          href="/explore"
+          className="text-gray-700 text-lg hover:text-black"
+        >
+          Explore
         </Link>
         <Link href="#others" className="text-gray-700 text-lg hover:text-black">
           Others
@@ -66,7 +103,13 @@ const AppNavbar = () => {
               <span className="sr-only">Toggle user menu</span>
             </Button>
           </DropdownMenuTrigger>
-          <p className="text-md font-semibold">name</p>
+          {loading ? (
+            <p className="text-md font-semibold">Loading...</p>
+          ) : (
+            <p className="text-md font-semibold">
+              {profile?.user_name || "User"}
+            </p>
+          )}
           <DropdownMenuContent
             align="end"
             className="w-56 rounded-lg shadow-lg border border-gray-200 bg-white"

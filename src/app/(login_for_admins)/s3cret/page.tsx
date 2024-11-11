@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import RetroGrid from "@/components/ui/retro-grid";
-import { Loader2, ArrowRight } from "lucide-react";
-// Update this import path according to where you keep your icons
+import { Loader2, ArrowRight } from "lucide-react"; // Update this import path according to where you keep your icons
+import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   const [email, setEmail] = useState("");
@@ -19,18 +19,23 @@ export default function LandingPage() {
       {/*mt-[-18rem] md:mt-[-12rem] lg:mt-[-18rem]*/}
       <main className="z-10">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-xl font-bold md:text-6xl lg:text-8xl leading-none text-black">
-            tailored language learning <br />
+          <h1 className="text-4xl font-bold md:text-6xl lg:text-8xl leading-none text-black">
+            Adaptive language learning, <br />
+            tailored to&nbsp;
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
-              just for you
+              your goals
             </span>
           </h1>
           <p className="text-base md:text-lg lg:text-xl text-black font-semibold mt-8 md:mt-12 lg:mt-16 mb-4 md:mb-6 lg:mb-10">
-            break free from the flock with language lessons personalized for
-            you.
+            break free from the&nbsp;
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#58cc02] to-[#58cc02]">
+              flock&nbsp;
+            </span>
+            with an app that teaches you real-world language for real-life
+            conversations
           </p>
           <div>
-            <form className="flex flex-col md:flex-row justify-center items-stretch">
+            {/* <form className="flex flex-col md:flex-row justify-center items-stretch">
               <input
                 type="email"
                 placeholder="enter your email"
@@ -51,12 +56,15 @@ export default function LandingPage() {
                   </>
                 ) : (
                   <>
-                    join our waitlist
+                    Start speaking like a native
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </>
                 )}
               </button>
-            </form>
+            </form> */}
+            <Button className="group bg-gradient-to-br from-orange-600 to-amber-500 text-white font-semibold rounded-full text-xl px-5 py-7">
+              Start speaking like a native
+            </Button>
           </div>
         </div>
       </main>
